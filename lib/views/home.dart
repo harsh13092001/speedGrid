@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tooltipproject/views/matrix.dart';
 
+import '../bloc/gridAnimationBloc.dart';
 import '../widget/widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -12,12 +14,15 @@ class _HomeScreenState extends State<HomeScreen> {
   final rowController = TextEditingController();
   final columnController = TextEditingController();
   void onPressed() {
-    Navigator.pushReplacement(
+    Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => GridWidget(
-                  numColumns: int.parse(rowController.text),
-                  numRows: int.parse(columnController.text),
+            builder: (context) => BlocProvider(
+                  create: (context) => AnimationBloc(),
+                  child: GridWidget(
+                    numColumns: int.parse(columnController.text),
+                    numRows: int.parse(rowController.text),
+                  ),
                 )));
   }
 
